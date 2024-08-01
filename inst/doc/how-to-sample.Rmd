@@ -1,0 +1,83 @@
+---
+title: "How to Sample From a Distribution"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{how-to-sample}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.align = "center"
+)
+```
+
+```{r setup}
+library(samplr)
+set.seed(123)
+```
+### Choosing a distibution
+To sample from a distribution, check the abbreviation, as well as the distribution parameters, in [the Supported Distributions Vignette](supported-distributions.html). Henceforth we sample from a Normal distribution with mean 0 and standard deviation 1. So, we need:
+
+1. A **starting point**: Any point in the sampling space. We'll choose the mean of our distribution, `0`.,
+2. **Distribution Name**: `"norm"`,
+3. **Distribution Parameters**: A vector with the distribution parameters. In our case, `mean` and `std`, that is: `c(0,1)`,
+
+```{r}
+start = 0
+name = "norm"
+params = c(0,1)
+```
+### Different Sampling Algorithms
+Different algorithms are available in the `samplr` package. For our example, we will use Metropolis Hastings. To use a sampler, we will always need the three previously mentioned items. For Metropolis Hastings and MC3, it is convenient to provide the variance of the proposal distribution, so we do that before sampling.
+```{r}
+proposal_variance <- 1 / 2
+MH_samples <- sampler_mh(start, name, params, proposal_variance)
+```
+
+If we plot our results:
+```{r}
+hist(MH_samples[[1]], freq=FALSE, breaks = 20)
+curve(dnorm(x, 0,1), add=TRUE)
+```
+
+Notice that the same approach is used for all other samplers:
+```{r}
+MC3_samples <- sampler_mc3(start, name, params, proposal_variance)
+
+HMC_samples <- sampler_hmc(start, name, params)
+```
+
+### Mixture Distributions
+If we want to sample from a mixture distribution, the following change:
+
+1. **Distribution Name**: A vector of distribution names, e.g. `c("norm", "norm")`
+2. **Distribution Parameters**: A list of vectors, each containing the distribution parameters.
+3. **Distribution Weights (optional)**: A vector with the weights given to each distribution. The sum of weights equals 1. 
+
+```{r}
+
+name <- c("norm", "norm")
+params <- list(c(-2, 1), c(2, 1))
+weights <- c(.4, .6)
+```
+We'll make a custom density function to plot the curve with our results (this is not necessary for the samplers to work)
+```{r}
+customDensity <- function(x){
+  dnorm(x, -2, 1) * 0.4 + dnorm(x, 2, 1) * 0.6
+}
+```
+We proceed as we did before:
+```{r}
+# Sample (more iterations as MH struggles to change hills)
+proposal_variance <- 1
+MH_samples <- sampler_mh(start, name, params, proposal_variance, iterations = 2**12, weights = weights)
+# plot
+hist(MH_samples[[1]], freq=FALSE, breaks = 20)
+curve(customDensity(x), add=TRUE)
+```
+
+See [the Multivariate Mixtures Vignette](multivariate-mixtures.html) for examples on how to mix multivariate distributions, as well as a comparison between the performance of different samplers in a 'patchy' environment. 

@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Supported Distributions</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Supported Distributions</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(samplr)</span></code></pre></div>
+<p>The current distributions in the samplr package are those supported
+by <a href="https://www.rcpp.org/">Rcpp</a> and <a href="https://github.com/duckmayr/RcppDist">RcppDist</a>.</p>
+<div id="univariate-distributions" class="section level2">
+<h2>Univariate Distributions</h2>
+<p>The parameters these distributions take can be provided in a vector,
+e.g. a vector <code>c(0,1)</code> for the standard normal
+distribution.</p>
+<div id="continuous-distributions" class="section level3">
+<h3>Continuous Distributions</h3>
+<table>
+<colgroup>
+<col width="12%" />
+<col width="37%" />
+<col width="50%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Abbreviation</th>
+<th align="left">Distribution Name</th>
+<th align="left">Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>unif</em></td>
+<td align="left">Uniform Distribution</td>
+<td align="left"><code>min</code>, <code>max</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>norm</em></td>
+<td align="left">Normal Distribution</td>
+<td align="left"><code>mean</code>, <code>sd</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>lnorm</em></td>
+<td align="left">Lognormal Distribution</td>
+<td align="left"><code>log_mean</code>, <code>log_sd</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>gamma</em></td>
+<td align="left">Gamma Distribution</td>
+<td align="left"><code>shape</code>, <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>beta</em></td>
+<td align="left">Beta Distribution</td>
+<td align="left"><code>shape1</code>,<code>shape2</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>nbeta</em></td>
+<td align="left">Non-central Beta Distribution</td>
+<td align="left"><code>shape1</code>,<code>shape2</code>,
+<code>ncp</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>chisq</em></td>
+<td align="left">Chi-squared Distribution</td>
+<td align="left"><code>df</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>nchisq</em></td>
+<td align="left">Non-central Chi-squared Distribution</td>
+<td align="left"><code>df</code>, <code>ncp</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>t</em></td>
+<td align="left">t Distribution</td>
+<td align="left"><code>df</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>nt</em></td>
+<td align="left">Non-central t Distribution</td>
+<td align="left"><code>df</code>, <code>ncp</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>f</em></td>
+<td align="left">F Distribution</td>
+<td align="left"><code>df1</code>, <code>df2</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>nf</em></td>
+<td align="left">Non-central F Distribution</td>
+<td align="left"><code>df1</code>, <code>df2</code>,
+<code>ncp</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>cauchy</em></td>
+<td align="left">Cauchy Distribution</td>
+<td align="left"><code>location</code>, <code>scale</code>,</td>
+</tr>
+<tr class="even">
+<td align="left"><em>exp</em></td>
+<td align="left">Exponential Distribution</td>
+<td align="left"><code>rate</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>logis</em></td>
+<td align="left">Logistic Distribution</td>
+<td align="left"><code>location</code>, <code>scale</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>weibull</em></td>
+<td align="left">Weibull Distribution</td>
+<td align="left"><code>shape</code>, <code>scale</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>4beta</em></td>
+<td align="left">4-parameter Beta Distribution</td>
+<td align="left"><code>shape1</code>,<code>shape2</code>,
+<code>minumum</code>, <code>maximum</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>lst</em></td>
+<td align="left">Location-scale t Distribution</td>
+<td align="left"><code>df</code>, <code>location</code>,
+<code>scale</code>,</td>
+</tr>
+<tr class="odd">
+<td align="left"><em>truncnorm</em></td>
+<td align="left">Truncated Normal Distribution</td>
+<td align="left"><code>mean</code>, <code>sd</code>,
+<code>low_bound</code>, <code>high_bound</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>trunct</em></td>
+<td align="left">Truncated t Distribution</td>
+<td align="left"><code>df</code>, <code>low_bound</code>,
+<code>high_bound</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>trunclst</em></td>
+<td align="left">Truncated Location-scale t Distribution</td>
+<td align="left"><code>df</code>, <code>location</code>,
+<code>scale</code>, <code>low_bound</code>, <code>high_bound</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>triangular</em></td>
+<td align="left">Triangular Distribution</td>
+<td align="left"><code>lower_limit</code>, <code>upper_limit</code>,
+<code>mode</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="discrete-distributions" class="section level3">
+<h3>Discrete Distributions</h3>
+<table>
+<colgroup>
+<col width="9%" />
+<col width="50%" />
+<col width="40%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Abbreviation</th>
+<th align="left">Distribution Name</th>
+<th align="left">Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>binom</em></td>
+<td align="left">Binomial Distribution</td>
+<td align="left"><code>size</code>, <code>success_prob</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>nbinom</em></td>
+<td align="left">Negative Binomial Distribution (with success
+probability as parameter)</td>
+<td align="left"><code>size</code>, <code>success_prob</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>nbinom_mu</em></td>
+<td align="left">Negative Binomial Distribution (with mean as
+parameter)</td>
+<td align="left"><code>size</code>, <code>mean</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>pois</em></td>
+<td align="left">Poisson Distribution</td>
+<td align="left"><code>lambda</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>geom</em></td>
+<td align="left">Geometric Distribution</td>
+<td align="left"><code>success_prob</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>hyper</em></td>
+<td align="left">Hypergeometric Distribution</td>
+<td align="left"><code>number_successes</code>,
+<code>number_failures</code>, <code>number_samples</code></td>
+</tr>
+<tr class="odd">
+<td align="left"><em>wilcox</em></td>
+<td align="left">Distribution of Wilcoxon rank-sum test statistic</td>
+<td align="left"><code>number_samples1</code>,
+<code>number_samples2</code></td>
+</tr>
+<tr class="even">
+<td align="left"><em>signrank</em></td>
+<td align="left">Distribution of Wilcoxon signed-rank test
+statistic</td>
+<td align="left"><code>number_samples</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="multivariate-distributions" class="section level2">
+<h2>Multivariate Distributions</h2>
+<p>For multivariate distributions, distribution parameters are provided
+in a list, not a vector.</p>
+<div id="continuous-distributions-1" class="section level3">
+<h3>Continuous Distributions</h3>
+<table>
+<colgroup>
+<col width="13%" />
+<col width="21%" />
+<col width="64%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Abbreviation</th>
+<th align="left">Distribution Name</th>
+<th align="left">Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><em>mvnorm</em></td>
+<td align="left">Multivariate Normal</td>
+<td align="left"><code>mean</code> (vector);
+<code>covariance_matrix</code> (matrix)</td>
+</tr>
+<tr class="even">
+<td align="left"><em>mvt</em></td>
+<td align="left">Multivariate t</td>
+<td align="left"><code>location</code> (vector);
+<code>scale_matrix</code> (matrix), <code>df</code> (number)</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="examples" class="section level2">
+<h2>Examples</h2>
+<div id="univariate-distribution" class="section level3">
+<h3>Univariate distribution</h3>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">sampler_mh</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  <span class="at">start =</span> <span class="dv">0</span>, <span class="co"># starting point for the sampler</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  <span class="at">distr_name =</span> <span class="st">&quot;truncnorm&quot;</span>, <span class="co"># Use abbreviation in distr_name</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  <span class="at">distr_params =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>,<span class="sc">-</span><span class="dv">5</span>,<span class="dv">0</span>), <span class="co"># provide distribution parameters as a vector for univariate distributions</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  <span class="at">sigma_prop =</span> <span class="dv">1</span>, <span class="co"># variance of the proposal distribution</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>)</span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="fu">hist</span>(X[[<span class="dv">1</span>]])</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="multivariate-distribution" class="section level3">
+<h3>Multivariate distribution</h3>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">sampler_hmc</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>  <span class="at">start =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), </span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a>  <span class="at">distr_name =</span> <span class="st">&quot;mvnorm&quot;</span>, <span class="co"># as before</span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a>  <span class="fu">list</span>(<span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">0</span>), <span class="fu">diag</span>(<span class="dv">2</span>)), <span class="co"># provide distribution parameters as a list for multivariate distributions</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>)</span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>x <span class="ot">&lt;-</span> X[[<span class="dv">1</span>]][,<span class="dv">1</span>]</span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a>y <span class="ot">&lt;-</span> X[[<span class="dv">1</span>]][,<span class="dv">2</span>]</span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="fu">plot</span>(x,y)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

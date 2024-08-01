@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>How to Sample From a Distribution</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">How to Sample From a Distribution</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(samplr)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span></code></pre></div>
+<div id="choosing-a-distibution" class="section level3">
+<h3>Choosing a distibution</h3>
+<p>To sample from a distribution, check the abbreviation, as well as the
+distribution parameters, in <a href="supported-distributions.html">the
+Supported Distributions Vignette</a>. Henceforth we sample from a Normal
+distribution with mean 0 and standard deviation 1. So, we need:</p>
+<ol style="list-style-type: decimal">
+<li>A <strong>starting point</strong>: Any point in the sampling space.
+We’ll choose the mean of our distribution, <code>0</code>.,</li>
+<li><strong>Distribution Name</strong>: <code>&quot;norm&quot;</code>,</li>
+<li><strong>Distribution Parameters</strong>: A vector with the
+distribution parameters. In our case, <code>mean</code> and
+<code>std</code>, that is: <code>c(0,1)</code>,</li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>start <span class="ot">=</span> <span class="dv">0</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>name <span class="ot">=</span> <span class="st">&quot;norm&quot;</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>params <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">1</span>)</span></code></pre></div>
+</div>
+<div id="different-sampling-algorithms" class="section level3">
+<h3>Different Sampling Algorithms</h3>
+<p>Different algorithms are available in the <code>samplr</code>
+package. For our example, we will use Metropolis Hastings. To use a
+sampler, we will always need the three previously mentioned items. For
+Metropolis Hastings and MC3, it is convenient to provide the variance of
+the proposal distribution, so we do that before sampling.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a>proposal_variance <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">/</span> <span class="dv">2</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>MH_samples <span class="ot">&lt;-</span> <span class="fu">sampler_mh</span>(start, name, params, proposal_variance)</span></code></pre></div>
+<p>If we plot our results:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="fu">hist</span>(MH_samples[[<span class="dv">1</span>]], <span class="at">freq=</span><span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">20</span>)</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dnorm</span>(x, <span class="dv">0</span>,<span class="dv">1</span>), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>Notice that the same approach is used for all other samplers:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>MC3_samples <span class="ot">&lt;-</span> <span class="fu">sampler_mc3</span>(start, name, params, proposal_variance)</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>HMC_samples <span class="ot">&lt;-</span> <span class="fu">sampler_hmc</span>(start, name, params)</span></code></pre></div>
+</div>
+<div id="mixture-distributions" class="section level3">
+<h3>Mixture Distributions</h3>
+<p>If we want to sample from a mixture distribution, the following
+change:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Distribution Name</strong>: A vector of distribution names,
+e.g. <code>c(&quot;norm&quot;, &quot;norm&quot;)</code></li>
+<li><strong>Distribution Parameters</strong>: A list of vectors, each
+containing the distribution parameters.</li>
+<li><strong>Distribution Weights (optional)</strong>: A vector with the
+weights given to each distribution. The sum of weights equals 1.</li>
+</ol>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>name <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;norm&quot;</span>, <span class="st">&quot;norm&quot;</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>params <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="fu">c</span>(<span class="sc">-</span><span class="dv">2</span>, <span class="dv">1</span>), <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">1</span>))</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(.<span class="dv">4</span>, .<span class="dv">6</span>)</span></code></pre></div>
+<p>We’ll make a custom density function to plot the curve with our
+results (this is not necessary for the samplers to work)</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>customDensity <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  <span class="fu">dnorm</span>(x, <span class="sc">-</span><span class="dv">2</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fl">0.4</span> <span class="sc">+</span> <span class="fu">dnorm</span>(x, <span class="dv">2</span>, <span class="dv">1</span>) <span class="sc">*</span> <span class="fl">0.6</span></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>We proceed as we did before:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Sample (more iterations as MH struggles to change hills)</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>proposal_variance <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>MH_samples <span class="ot">&lt;-</span> <span class="fu">sampler_mh</span>(start, name, params, proposal_variance, <span class="at">iterations =</span> <span class="dv">2</span><span class="sc">**</span><span class="dv">12</span>, <span class="at">weights =</span> weights)</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a><span class="co"># plot</span></span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a><span class="fu">hist</span>(MH_samples[[<span class="dv">1</span>]], <span class="at">freq=</span><span class="cn">FALSE</span>, <span class="at">breaks =</span> <span class="dv">20</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">customDensity</span>(x), <span class="at">add=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" style="display: block; margin: auto;" /></p>
+<p>See <a href="multivariate-mixtures.html">the Multivariate Mixtures
+Vignette</a> for examples on how to mix multivariate distributions, as
+well as a comparison between the performance of different samplers in a
+‘patchy’ environment.</p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
