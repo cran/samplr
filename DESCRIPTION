@@ -1,7 +1,7 @@
 Package: samplr
 Type: Package
 Title: Compare Human Performance to Sampling Algorithms
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: c(
     person(given = "Lucas",
            family = "Castillo",
@@ -38,11 +38,11 @@ URL: https://github.com/lucas-castillo/samplr
 BugReports: https://github.com/lucas-castillo/samplr/issues
 Depends: R (>= 2.10)
 NeedsCompilation: yes
-Packaged: 2024-07-30 10:49:45 UTC; Lucas
+Packaged: 2024-08-19 08:00:27 UTC; Lucas
 Author: Lucas Castillo [aut, cre, cph]
     (<https://orcid.org/0000-0003-0274-0777>),
   Yun-Xiao Li [aut, cph] (<https://orcid.org/0000-0002-3509-6618>),
   Adam N Sanborn [aut, cph] (<https://orcid.org/0000-0003-0442-4372>),
   European Research Council (ERC) [fnd]
 Repository: CRAN
-Date/Publication: 2024-08-01 09:00:02 UTC
+Date/Publication: 2024-08-19 08:40:02 UTC
