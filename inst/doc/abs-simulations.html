@@ -60,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -1146,21 +1146,22 @@ the settings modified.</p>
 <span id="cb15-7"><a href="#cb15-7" tabindex="-1"></a>  <span class="at">discrim =</span> <span class="dv">1</span>, <span class="at">trial_stim =</span> trial_stim</span>
 <span id="cb15-8"><a href="#cb15-8" tabindex="-1"></a>)</span></code></pre></div>
 <p>The table below presents the simulation results, including the
-simulated response, response time, and confidence. It is important to
-note that in the simulation of 2AFC, the length of the sample sequences
-may vary due to ABS utilizing a relative stopping rule. To illustrate
-its mechanism, let us examine the sequences in the first two trials as
-an example.</p>
+simulated response, response time, confidence, and point estimates. It
+is important to note that in the simulation of 2AFC, the length of the
+sample sequences may vary due to ABS utilizing a relative stopping rule.
+To illustrate its mechanism, let us examine the sequences in the first
+two trials as an example.</p>
 <div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(abs_model2<span class="sc">$</span>sim_results)</span></code></pre></div>
-<table style="width:100%;">
+<table>
 <colgroup>
 <col width="2%" />
-<col width="74%" />
+<col width="71%" />
 <col width="4%" />
 <col width="4%" />
 <col width="4%" />
 <col width="4%" />
-<col width="5%" />
+<col width="4%" />
+<col width="4%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -1171,6 +1172,7 @@ an example.</p>
 <th align="right">accuracy</th>
 <th align="right">rt</th>
 <th align="right">confidence</th>
+<th align="right">point_est</th>
 </tr>
 </thead>
 <tbody>
@@ -1182,6 +1184,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">0.8842087</td>
 <td align="right">0.8333333</td>
+<td align="right">0.2739435</td>
 </tr>
 <tr class="even">
 <td align="left">2</td>
@@ -1192,6 +1195,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">0.6003210</td>
 <td align="right">0.7500000</td>
+<td align="right">-1.4366053</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
@@ -1201,6 +1205,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">0.4214597</td>
 <td align="right">0.8333333</td>
+<td align="right">-1.0762124</td>
 </tr>
 <tr class="even">
 <td align="left">4</td>
@@ -1210,6 +1215,7 @@ an example.</p>
 <td align="right">0</td>
 <td align="right">0.5587766</td>
 <td align="right">0.8333333</td>
+<td align="right">-0.2486073</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
@@ -1219,6 +1225,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">0.7195611</td>
 <td align="right">0.8333333</td>
+<td align="right">1.6817583</td>
 </tr>
 <tr class="even">
 <td align="left">6</td>
@@ -1229,6 +1236,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">0.8551096</td>
 <td align="right">0.7500000</td>
+<td align="right">0.9870808</td>
 </tr>
 <tr class="odd">
 <td align="left">7</td>
@@ -1238,6 +1246,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">0.5159783</td>
 <td align="right">0.8333333</td>
+<td align="right">0.9870808</td>
 </tr>
 <tr class="even">
 <td align="left">8</td>
@@ -1249,6 +1258,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">1.4518855</td>
 <td align="right">0.6250000</td>
+<td align="right">0.5259669</td>
 </tr>
 <tr class="odd">
 <td align="left">9</td>
@@ -1259,6 +1269,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">1.1940603</td>
 <td align="right">0.7000000</td>
+<td align="right">-0.9896238</td>
 </tr>
 <tr class="even">
 <td align="left">10</td>
@@ -1269,6 +1280,7 @@ an example.</p>
 <td align="right">1</td>
 <td align="right">1.6029330</td>
 <td align="right">0.6666667</td>
+<td align="right">-0.2768050</td>
 </tr>
 </tbody>
 </table>
@@ -1326,14 +1338,15 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <span id="cb18-5"><a href="#cb18-5" tabindex="-1"></a>  <span class="at">prior_depend =</span> <span class="cn">FALSE</span></span>
 <span id="cb18-6"><a href="#cb18-6" tabindex="-1"></a>)</span>
 <span id="cb18-7"><a href="#cb18-7" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(abs_model2<span class="sc">$</span>sim_results)</span></code></pre></div>
-<table>
+<table style="width:100%;">
 <colgroup>
 <col width="3%" />
-<col width="68%" />
+<col width="64%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
 <col width="5%" />
-<col width="5%" />
-<col width="5%" />
-<col width="5%" />
+<col width="6%" />
 <col width="6%" />
 </colgroup>
 <thead>
@@ -1345,6 +1358,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <th align="right">accuracy</th>
 <th align="right">rt</th>
 <th align="right">confidence</th>
+<th align="right">point_est</th>
 </tr>
 </thead>
 <tbody>
@@ -1356,6 +1370,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">1</td>
 <td align="right">0.5254800</td>
 <td align="right">0.8333333</td>
+<td align="right">4.6531752</td>
 </tr>
 <tr class="even">
 <td align="left">2</td>
@@ -1365,6 +1380,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">1</td>
 <td align="right">0.5513093</td>
 <td align="right">0.8333333</td>
+<td align="right">-2.8479882</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
@@ -1374,6 +1390,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">0</td>
 <td align="right">0.7555300</td>
 <td align="right">0.8333333</td>
+<td align="right">0.0614605</td>
 </tr>
 <tr class="even">
 <td align="left">4</td>
@@ -1384,6 +1401,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">1</td>
 <td align="right">1.1302366</td>
 <td align="right">0.7000000</td>
+<td align="right">0.5900638</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
@@ -1393,6 +1411,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">0</td>
 <td align="right">0.9798226</td>
 <td align="right">0.8333333</td>
+<td align="right">-0.3545086</td>
 </tr>
 <tr class="even">
 <td align="left">6</td>
@@ -1402,6 +1421,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">1</td>
 <td align="right">0.5360159</td>
 <td align="right">0.8333333</td>
+<td align="right">1.1382033</td>
 </tr>
 <tr class="odd">
 <td align="left">7</td>
@@ -1412,6 +1432,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">0</td>
 <td align="right">0.7949616</td>
 <td align="right">0.7500000</td>
+<td align="right">-1.3554734</td>
 </tr>
 <tr class="even">
 <td align="left">8</td>
@@ -1421,6 +1442,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">1</td>
 <td align="right">0.9697987</td>
 <td align="right">0.8333333</td>
+<td align="right">0.9140209</td>
 </tr>
 <tr class="odd">
 <td align="left">9</td>
@@ -1430,6 +1452,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">0</td>
 <td align="right">0.9800438</td>
 <td align="right">0.8333333</td>
+<td align="right">2.5693248</td>
 </tr>
 <tr class="even">
 <td align="left">10</td>
@@ -1441,6 +1464,7 @@ resets to <code>Beta(1, 1)</code> at the start of every trial.</p>
 <td align="right">1</td>
 <td align="right">1.6487114</td>
 <td align="right">0.6666667</td>
+<td align="right">-2.5076334</td>
 </tr>
 </tbody>
 </table>
@@ -1491,10 +1515,11 @@ the value of <code>custom_start</code>.</p>
 <table>
 <colgroup>
 <col width="3%" />
-<col width="71%" />
+<col width="67%" />
 <col width="4%" />
 <col width="4%" />
 <col width="4%" />
+<col width="5%" />
 <col width="5%" />
 <col width="5%" />
 </colgroup>
@@ -1507,6 +1532,7 @@ the value of <code>custom_start</code>.</p>
 <th align="right">accuracy</th>
 <th align="right">rt</th>
 <th align="right">confidence</th>
+<th align="right">point_est</th>
 </tr>
 </thead>
 <tbody>
@@ -1519,6 +1545,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">1.3962562</td>
 <td align="right">0.6666667</td>
+<td align="right">1.4869701</td>
 </tr>
 <tr class="even">
 <td align="left">2</td>
@@ -1528,6 +1555,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">0</td>
 <td align="right">0.7224212</td>
 <td align="right">0.8333333</td>
+<td align="right">1.4869701</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
@@ -1538,6 +1566,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">0.8641009</td>
 <td align="right">0.7500000</td>
+<td align="right">-0.9977885</td>
 </tr>
 <tr class="even">
 <td align="left">4</td>
@@ -1549,6 +1578,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">1.6384660</td>
 <td align="right">0.6428571</td>
+<td align="right">0.9858584</td>
 </tr>
 <tr class="odd">
 <td align="left">5</td>
@@ -1558,6 +1588,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">0.6274639</td>
 <td align="right">0.8333333</td>
+<td align="right">0.5086753</td>
 </tr>
 <tr class="even">
 <td align="left">6</td>
@@ -1567,6 +1598,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">0.4416011</td>
 <td align="right">0.8333333</td>
+<td align="right">0.0325717</td>
 </tr>
 <tr class="odd">
 <td align="left">7</td>
@@ -1577,6 +1609,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">1.4056088</td>
 <td align="right">0.7000000</td>
+<td align="right">0.7083394</td>
 </tr>
 <tr class="even">
 <td align="left">8</td>
@@ -1586,6 +1619,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">0.9689298</td>
 <td align="right">0.8333333</td>
+<td align="right">0.8615744</td>
 </tr>
 <tr class="odd">
 <td align="left">9</td>
@@ -1596,6 +1630,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">1.0342848</td>
 <td align="right">0.7000000</td>
+<td align="right">-0.8294954</td>
 </tr>
 <tr class="even">
 <td align="left">10</td>
@@ -1605,6 +1640,7 @@ the value of <code>custom_start</code>.</p>
 <td align="right">1</td>
 <td align="right">1.1686782</td>
 <td align="right">0.8333333</td>
+<td align="right">-1.2744982</td>
 </tr>
 </tbody>
 </table>

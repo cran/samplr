@@ -60,7 +60,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -363,7 +363,7 @@ supported by Rcpp and RcppDist at the time of writing.</p>
 <span id="cb1-14"><a href="#cb1-14" tabindex="-1"></a>x <span class="ot">&lt;-</span> Y[[<span class="dv">1</span>]][,<span class="dv">1</span>]</span>
 <span id="cb1-15"><a href="#cb1-15" tabindex="-1"></a>y <span class="ot">&lt;-</span> Y[[<span class="dv">1</span>]][,<span class="dv">2</span>]</span>
 <span id="cb1-16"><a href="#cb1-16" tabindex="-1"></a><span class="fu">plot</span>(x,y, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">5</span>,<span class="dv">5</span>))</span></code></pre></div>
-<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p><img role="img" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAATlBMVEUAAAAAADoAAGYAOpAAZrY6AAA6ADo6kNtmAABmADpmZmZmtv+QOgCQZgCQ2/+2ZgC2/7a2///bkDrb/9vb////tmb/25D//7b//9v///98iHqEAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAFW0lEQVR4nO3dD3PaNgBAcbdZVraysHlzgO//RRdiTJsG6cm2ZAt4765/rsGW8jtBgBNuc7RozdoTqD2BIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBoMxAzc20FlDe05VLIEggSCBIIEggSCBIIEggSCBIIKgo0Ovz95ynW6UiQPvNj9d6X/+ZfbpVK7OCuubb6Q9XULD95um/a0Dj30VYu2KPQbsvL66gaG3zTaBor89NI1Csw1ag8uOunUCQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQNDCQL4nvdLpyiUQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQNB5ov+n3+EY7bKO7pMsA/Xif8pe/Db81x/FvZU5ZQe3bMHGjdvh6F7phAaDmctp3iuHfzi7DH8eRb/pOvIvFjQ7by9fa037pOeMmdxHpfzVnpebzJ9CHFTXitBNu2EbuQPvNZfNm9/E2Bd+0vyyeXy2ufhg+WWgaUNecdvgetoHlsdYKukoSuYZB4mmTxz93+qhK/213oSXUDvt/F30MillcvZ+lTGLKT7EvL3jr4fM+gfVTCGggSoVKmcUdPQ8atYCShe4JaEr5JipQrhuucrr+lAV8BMo20fqBptzHMk60fqAJPA8FNGH1PNYKGr+ACj2TzlMVQFknen9AmSdaPdBYocQpPCLQ5ZZZJ1o90MgFlCr0yED+mBfo4yknlHGieb6jMVMbe+oir1XvaAVNWUD1raBSpztOeaL4YEC+H8TnFAjOOZrn0YBGE+Wc6E0AjRTKOtFbABorlHWiNwBU4h52X0DDzqmMPncGNJz58nD94YH70+ahrBO9GaBhk9kF5bzR5WeXdJ97BBp2JfZ/uz5Qsk9ZIK/EGcjLJVNeLpkKXS554ulWrNhjkJdLprxcMnXtcskjn6VVUMkf814uGfppw32O062TQJBAkECQQNA9vprPmkCQQJBAkECQQJBAkEDQakA300pAkwahOcw7fOZ3KNC8wfMk0LxBBBJo3iACCTRvEIEEuuMEggSCBIIEggSCBIIEggSCBIIEggSCBIKWAtoFL//aX+Y8uOWoa5rIRWbjx9LIKS0E1IWvj3vYvgG0zW+BA9++2AWF4sfSyEktA7TfhKfZb0tvr386pt/NtgsJRI/FkZNaBqh9+gumGVglLBA+NnFkaBGg199f6JFgd93g7chj5Arg0WMTR4aWADrdT2CaoUuc94sjtkQil0dPGplaAuh0Afz4NLvYYzQABY9NGhlbAOj9bhKdZngN8F0ssn4SRubKAr3/Px3tecPJ50/AnP8bjzb8PeKDdOTY/vzXR06vgieKbeQbgB/z0WN55JTWB3p9jj0Tjj9RjB9LIye1PtD5fhBCaGMvNeBYGDkpX6xCAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQQJBAkECQbUDnTaX7Te8C6hYtQOdtpi183b4zKt2oGP39e8/YvujSlc90HEX/ShG8eoH6mZtUp1d9UCH7Z/xDyIUrnqg9unfyPWry1c70H7znT7LUrbagU6beA/bFR+mawdaPYEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggSCBIIEggaD/AZZdmpbXEFT1AAAAAElFTkSuQmCC" /><!-- --></p>
 <div id="on-timing" class="section level4">
 <h4>On Timing</h4>
 <p>Using a custom function, rather than sampling from a supported
@@ -412,18 +412,18 @@ change this much (it’s actually probably worse).</p>
 <tbody>
 <tr class="odd">
 <td align="left">CPP Density</td>
-<td align="right">2.4ms</td>
-<td align="right">3.4ms</td>
+<td align="right">2.74ms</td>
+<td align="right">4.65ms</td>
 </tr>
 <tr class="even">
 <td align="left">R Density</td>
-<td align="right">1.83ms</td>
-<td align="right">1.93ms</td>
+<td align="right">1.88ms</td>
+<td align="right">2.58ms</td>
 </tr>
 <tr class="odd">
 <td align="left">Supported Density</td>
-<td align="right">935.5µs</td>
-<td align="right">1.09ms</td>
+<td align="right">1.01ms</td>
+<td align="right">1.48ms</td>
 </tr>
 </tbody>
 </table>
@@ -508,8 +508,8 @@ in R.</p>
 <tbody>
 <tr class="odd">
 <td align="left">Bespoke MH</td>
-<td align="right">113ms</td>
-<td align="right">115ms</td>
+<td align="right">263ms</td>
+<td align="right">270ms</td>
 </tr>
 </tbody>
 </table>

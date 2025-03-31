@@ -7,7 +7,8 @@
 #'
 #' @param a,b,a_and_b,a_or_b,a_given_b,b_given_a,a_given_not_b,b_given_not_a,a_and_not_b,b_and_not_a Probability estimates given by participants
 #' @param not_a,not_b Probability estimates given by participants. If not given, they'll default to 1-a and 1-b respectively
-#'
+#' @references
+#'    \insertAllCited{}
 #' @return Dataframe with identities Z1 to Z18 
 #' @export
 #'
@@ -200,8 +201,11 @@ get_true_probabilities <- function(
 #' @param beta Prior parameter.
 #' @param N Number of samples drawn
 #' @param N2 Optional. Number of samples drawn for conjunctions and disjunctions. (called N' in the paper). If not given, it will default to N2=N. Must be equal or smaller than N. 
-#'
-#' @return Named list with predicted probabilities for every possible combination of A and B. 
+#' @param return Optional. Either "mean", "variance" or "simulation". Defaults to "mean".
+#' @param n_simulations Optional. if return="simulation", how many simulations per possible combination of A and B. Defaults to 1000.
+#' @references
+#'    \insertAllCited{}
+#' @return If return="mean" or return="variance", named list with predicted probabilities for every possible combination of A and B, or the expected variance of those predictions. If return="simulation", simulated predictions instead. Note that if return="simulation", the named list will contain vectors if the length of the true probabilities is 1; otherwise a matrix where each column is a queried probability and each row a simulation
 #' @export
 #'
 #' @examples
@@ -214,13 +218,26 @@ get_true_probabilities <- function(
 #'     N <- c(10, 12),
 #'     N2 <- c(10, 10)
 #' )
+# Simulations return matrices--
+#' Bayesian_Sampler(
+#'    a_and_b = c(0.05, .85),
+#'    b_and_not_a = c(.85,  0.05),
+#'    a_and_not_b = c(.05, 0.05),
+#'    not_a_and_not_b = c(0.05, 0.05),
+#'    beta = 1,
+#'    N = 5,
+#'    return="simulation"
+#')$a
 
 Bayesian_Sampler <- function(
     a_and_b,
     b_and_not_a,
     a_and_not_b,
     not_a_and_not_b,
-    beta, N, N2=NULL){
+    beta, N, N2=NULL, 
+    return="mean", 
+    n_simulations = 1e3
+  ){
   
   if (sd(
     lengths(
@@ -252,17 +269,40 @@ Bayesian_Sampler <- function(
     a_and_not_b, 
     not_a_and_not_b
   )
-  predicted_means <- list()
+  get_mean <- function(p, N, beta){
+    p*N/(N+2*beta)+beta/(N+2*beta)
+  }
+  get_v <- function(p, N, beta){
+    (N * p * (1-p)) / ((N + 2 * beta)**2)
+  }
+  simulate <- function(p, N, beta){
+    res <- (stats::rbinom(n = n_simulations * length(p), size = N, prob = p) + beta) / (N + 2 * beta)
+    if (length(p) == 1){
+      return(res)
+    } else{
+      return(matrix(res, ncol=length(p), byrow = T))
+    }
+  }
+  f <- if (return == "mean") {
+    get_mean
+  } else if (return == "variance") {
+    get_v
+  } else if (return == "simulation") {
+    simulate
+  } else {
+    stop("return parameter should be one of 'mean', 'variance' or 'simulation'.")
+  }
+  return_list <- list()
   for (name in names(true_probabilities)){
       if (name %in% c( # treat conjunctions differently
         "b_or_not_a", "not_a_or_not_b", "a_or_b", "a_or_not_b", 
         "a_and_b", "b_and_not_a", "a_and_not_b", "not_a_and_not_b")){
-        predicted_means[[name]] <- true_probabilities[[name]]*N2/(N2+2*beta)+beta/(N2+2*beta)
+        return_list[[name]] <- f(true_probabilities[[name]], N2, beta)
       } else{
-        predicted_means[[name]] <- true_probabilities[[name]]*N/(N+2*beta)+beta/(N+2*beta)
+        return_list[[name]] <- f(true_probabilities[[name]], N, beta)
       }
   }
-  return(predicted_means)
+  return(return_list)
 }
 
 #' Mean Variance Estimates
@@ -271,7 +311,8 @@ Bayesian_Sampler <- function(
 #'
 #' @param rawData Dataframe with the following column variables for N repetitions of each unique query: participant ID ('id'), response query 1, response query 2, ... , response query N
 #' @param idCol Name of the 'ID' column.
-#'
+#' @references
+#'    \insertAllCited{}
 #' @return A dataframe with values for the intercept (b0) and slope (b1) of the estimated regression, as well as estimates for N, d, and beta (termed b in the paper) for each participant. 
 #' @export
 #'
@@ -280,12 +321,13 @@ Bayesian_Sampler <- function(
 #' library(tidyr)
 #' library(magrittr)
 #' library(samplrData)
+#' pct_to_prob <- function(x){x/100}
 #' data <- sundh2023.meanvariance.e3 %>%
 #'   group_by(ID, querydetail) %>% 
 #'   mutate(iteration = LETTERS[1:n()]) %>% 
 #'   pivot_wider(id_cols = c(ID, querydetail), 
 #'       values_from = estimate, names_from = iteration) %>% 
-#'   mutate(across(where(is.numeric), \(x){x/100})) %>% 
+#'   mutate(across(where(is.numeric), pct_to_prob)) %>% 
 #'   ungroup %>% 
 #'   select(-querydetail)
 #' head(data)
