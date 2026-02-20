@@ -48,8 +48,9 @@ overflow: visible;
 }
 </style>
 <style type="text/css" data-origin="pandoc">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -60,7 +61,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
 { counter-reset: source-line 0; }
@@ -366,33 +367,33 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <tbody>
 <tr class="odd">
 <td align="left">Metropolis-Hastings</td>
-<td align="right">944.3µs</td>
-<td align="right">1.32ms</td>
+<td align="right">1.14ms</td>
+<td align="right">1.25ms</td>
 </tr>
 <tr class="even">
 <td align="left">MC3</td>
-<td align="right">13.53ms</td>
-<td align="right">15.96ms</td>
+<td align="right">12.23ms</td>
+<td align="right">13.38ms</td>
 </tr>
 <tr class="odd">
 <td align="left">Hamiltonian Monte-Carlo</td>
-<td align="right">9.98ms</td>
-<td align="right">12.19ms</td>
+<td align="right">9.71ms</td>
+<td align="right">10.95ms</td>
 </tr>
 <tr class="even">
 <td align="left">REC</td>
-<td align="right">10.42ms</td>
-<td align="right">12.98ms</td>
+<td align="right">9.75ms</td>
+<td align="right">11.32ms</td>
 </tr>
 <tr class="odd">
 <td align="left">MCHMC</td>
-<td align="right">79.84ms</td>
-<td align="right">86.51ms</td>
+<td align="right">71.71ms</td>
+<td align="right">78.9ms</td>
 </tr>
 <tr class="even">
 <td align="left">MCREC</td>
-<td align="right">76.67ms</td>
-<td align="right">87.77ms</td>
+<td align="right">70.08ms</td>
+<td align="right">80.26ms</td>
 </tr>
 </tbody>
 </table>
